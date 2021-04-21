@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager sharedInstance;
     public GameState current = GameState.menu;
+    public Canvas menuCanvas;
 
     void Awake() 
     {
@@ -24,18 +25,21 @@ public class GameManager : MonoBehaviour
         current = GameState.menu;
     }
 
+
+
     void Update() 
     {
-        if (Input.GetButtonDown("s"))
-        {
-            current = GameState.inGame;
-        }
+        //if (!(current==GameState.inGame))
+        //    if (Input.GetButtonDown("s"))
+        //        StartGame();
     }
 
     // Start is called before the first frame update
     public void StartGame()
     {
-       // ChangeGameState(GameState.inGame);
+       PlayerControler.compartido.StartGame();
+       ChangeGameState(GameState.inGame);
+
     }
 
     // Update is called once per frame
@@ -51,20 +55,18 @@ public class GameManager : MonoBehaviour
 
     void ChangeGameState(GameState estado) 
     {
-        //switch (estado)
-        //{
-        //    case GameState.menu:
-        //        current = GameState.menu;
-        //        break;
-        //    case GameState.inGame:
-        //        current = GameState.inGame;
-        //        break;
-        //    case GameState.gameOver:
-        //        current = GameState.gameOver;
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (estado)
+        {
+            case GameState.menu:
+                menuCanvas.enabled = true;
+                break;
+            case GameState.inGame:
+                menuCanvas.enabled = false;
+                break;
+            case GameState.gameOver:
+                menuCanvas.enabled = false;
+                break;
+        }
 
         current = estado;
     }

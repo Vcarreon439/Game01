@@ -12,4 +12,7 @@ public class KillTrigger : MonoBehaviour
             PlayerControler.compartido.KillPlayer();
         }
     }
+
+
+
 }
