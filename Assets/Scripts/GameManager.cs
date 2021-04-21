@@ -21,12 +21,21 @@ public class GameManager : MonoBehaviour
 
     void Start() 
     {
-        StartGame();
+        current = GameState.menu;
     }
+
+    void Update() 
+    {
+        if (Input.GetButtonDown("s"))
+        {
+            current = GameState.inGame;
+        }
+    }
+
     // Start is called before the first frame update
     public void StartGame()
     {
-        ChangeGameState(GameState.inGame);
+       // ChangeGameState(GameState.inGame);
     }
 
     // Update is called once per frame
@@ -42,17 +51,20 @@ public class GameManager : MonoBehaviour
 
     void ChangeGameState(GameState estado) 
     {
-        switch (current)
-        {
-            case GameState.menu:
-                break;
-            case GameState.inGame:
-                break;
-            case GameState.gameOver:
-                break;
-            default:
-                break;
-        }
+        //switch (estado)
+        //{
+        //    case GameState.menu:
+        //        current = GameState.menu;
+        //        break;
+        //    case GameState.inGame:
+        //        current = GameState.inGame;
+        //        break;
+        //    case GameState.gameOver:
+        //        current = GameState.gameOver;
+        //        break;
+        //    default:
+        //        break;
+        //}
 
         current = estado;
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
+    public static PlayerControler compartido;
+
     public float jumpForce  = 6.0f;
     public float runningSpeed  = 3.0f;
     private Rigidbody2D rigidbody;
@@ -13,17 +15,18 @@ public class PlayerControler : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        compartido = this;
     }
 
     void FixedUpdate()
     {
-        //if (GameManager.sharedInstance.current = GameState.inGame)
-        //{
+        if (GameManager.sharedInstance.current == GameState.inGame)
+        {
             if (rigidbody.velocity.x < runningSpeed)
             {
                 rigidbody.velocity = new Vector2(runningSpeed, rigidbody.velocity.y);
             }
-        //}
+        }
     }
 
     // Start is called before the first frame update
@@ -35,8 +38,9 @@ public class PlayerControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-           Saltar();
+        if (GameManager.sharedInstance.current == GameState.inGame)
+            if (Input.GetMouseButtonDown(0))
+                Saltar();
 
         animador.SetBool("isGrounded", IsOnTheFloor());
     }
@@ -53,5 +57,11 @@ public class PlayerControler : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    public void KillPlayer() 
+    {
+        GameManager.sharedInstance.GameOver();
+        animador.SetBool("isAlive", false);
     }
 }
