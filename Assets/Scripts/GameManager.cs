@@ -14,14 +14,20 @@ public class GameManager : MonoBehaviour
     public static GameManager sharedInstance;
     public GameState current = GameState.menu;
     public Canvas menuCanvas;
+    public Canvas gamplay;
+    public Canvas GameOverCanvas;
 
     void Awake() 
     {
         sharedInstance = this;
+        menuCanvas.enabled = true;
     }
 
     void Start() 
     {
+        menuCanvas.enabled = true;
+        gamplay.enabled = false;
+        GameOverCanvas.enabled = false;
         current = GameState.menu;
     }
 
@@ -58,13 +64,19 @@ public class GameManager : MonoBehaviour
         switch (estado)
         {
             case GameState.menu:
+                GameOverCanvas.enabled = false;
                 menuCanvas.enabled = true;
+                gamplay.enabled = false;
                 break;
             case GameState.inGame:
+                GameOverCanvas.enabled = false;
                 menuCanvas.enabled = false;
+                gamplay.enabled = true;
                 break;
             case GameState.gameOver:
+                GameOverCanvas.enabled = true;
                 menuCanvas.enabled = false;
+                gamplay.enabled = false;
                 break;
         }
 
